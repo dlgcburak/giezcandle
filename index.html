@@ -586,36 +586,6 @@
     </div>
   </div>
 
-  <script>
-    // Year in footer
-    document.getElementById('y').textContent = new Date().getFullYear();
-
-    // Lightbox
-    const lb = document.getElementById('lightbox');
-    const img = document.getElementById('lightImg');
-    const closeBtn = document.getElementById('close');
-
-    function openLightbox(src){
-      img.src = src;
-      lb.classList.add('open');
-      closeBtn.focus();
-    }
-
-    function closeLightbox(){
-      lb.classList.remove('open');
-      img.removeAttribute('src');
-    }
-
-    document.querySelectorAll('[data-img]').forEach(el => {
-      el.addEventListener('click', () => openLightbox(el.getAttribute('data-img')));
-    });
-
-    closeBtn.addEventListener('click', closeLightbox);
-    lb.addEventListener('click', (e) => { if(e.target === lb) closeLightbox(); });
-
-    document.addEventListener('keydown', (e) => {
-      if(e.key === 'Escape' && lb.classList.contains('open')) closeLightbox();
-    });
-  </script>
+  <script type="module" src="./main.js"></script>
 </body>
 </html>
