@@ -1,0 +1,621 @@
+<!doctype html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Giez Candle — butik el yapımı mumlar. Çiçek, meyve ve özel konsept koleksiyonları." />
+  <title>Giez Candle</title>
+
+  <!-- Fonts (optional). You can remove these if you prefer system fonts. -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      /* Palette pulled from your burgundy logo */
+      --bg: #F3F0EA;
+      --surface: #FFFFFF;
+      --text: #221116;
+      --muted: #6B5A5F;
+
+      --brand-900: #481828; /* deep burgundy */
+      --brand-700: #784850; /* warm burgundy */
+      --accent: #B08A60;    /* soft gold */
+
+      --ring: rgba(72, 24, 40, .25);
+      --shadow: 0 18px 50px rgba(0,0,0,.12);
+      --radius: 18px;
+    }
+
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      color: var(--text);
+      background: radial-gradient(1200px 600px at 15% 10%, rgba(176,138,96,.18), transparent 60%),
+                  radial-gradient(900px 520px at 90% 30%, rgba(120,72,80,.18), transparent 60%),
+                  var(--bg);
+    }
+
+    a{color:inherit; text-decoration:none}
+    img{max-width:100%; display:block}
+
+    .container{max-width:1100px; margin:0 auto; padding:0 20px}
+
+    /* Top bar */
+    .topbar{
+      position: sticky; top: 0; z-index: 30;
+      backdrop-filter: blur(10px);
+      background: rgba(243,240,234,.72);
+      border-bottom: 1px solid rgba(72,24,40,.10);
+    }
+    .nav{
+      display:flex; align-items:center; justify-content:space-between;
+      padding: 14px 0;
+      gap: 16px;
+    }
+    .brand{
+      display:flex; align-items:center; gap: 12px;
+      min-width: 220px;
+    }
+    .brand img{
+      width: 44px; height: 44px; border-radius: 12px;
+      object-fit: cover;
+      box-shadow: 0 10px 26px rgba(72,24,40,.18);
+      border: 1px solid rgba(72,24,40,.12);
+      background: #fff;
+    }
+    .brand strong{font-family:"Playfair Display", serif; letter-spacing:.2px}
+    .brand span{display:block; font-size:12px; color: var(--muted); margin-top:2px}
+
+    .links{display:flex; gap: 14px; align-items:center; flex-wrap:wrap; justify-content:flex-end}
+    .links a{
+      font-size: 14px;
+      color: rgba(34,17,22,.85);
+      padding: 8px 10px;
+      border-radius: 12px;
+    }
+    .links a:hover{background: rgba(72,24,40,.06)}
+
+    .btn{
+      display:inline-flex; align-items:center; justify-content:center;
+      gap:10px;
+      padding: 10px 14px;
+      border-radius: 14px;
+      border: 1px solid rgba(72,24,40,.14);
+      background: var(--surface);
+      box-shadow: 0 10px 26px rgba(0,0,0,.06);
+      font-weight: 600;
+      cursor: pointer;
+    }
+    .btn.primary{
+      background: linear-gradient(135deg, var(--brand-900), var(--brand-700));
+      color: #fff;
+      border-color: rgba(0,0,0,.0);
+      box-shadow: 0 18px 46px rgba(72,24,40,.28);
+    }
+    .btn.primary:hover{filter: brightness(1.03)}
+
+    /* Hero */
+    .hero{padding: 44px 0 18px}
+    .heroGrid{
+      display:grid;
+      grid-template-columns: 1.25fr .95fr;
+      gap: 22px;
+      align-items:stretch;
+    }
+
+    .card{
+      background: rgba(255,255,255,.72);
+      border: 1px solid rgba(72,24,40,.12);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow:hidden;
+    }
+
+    .heroCopy{padding: 26px}
+    .kicker{
+      display:inline-flex; gap:10px; align-items:center;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: rgba(176,138,96,.16);
+      border: 1px solid rgba(176,138,96,.25);
+      color: rgba(72,24,40,.92);
+      font-weight: 600;
+      font-size: 13px;
+    }
+
+    h1{
+      font-family:"Playfair Display", serif;
+      font-size: clamp(34px, 4vw, 52px);
+      line-height: 1.05;
+      margin: 14px 0 12px;
+      letter-spacing: .2px;
+    }
+    .lead{color: rgba(34,17,22,.84); font-size: 16px; line-height: 1.6; max-width: 56ch}
+
+    .heroActions{display:flex; gap: 12px; flex-wrap:wrap; margin-top: 18px}
+
+    .badges{display:flex; gap:10px; flex-wrap:wrap; margin-top: 18px}
+    .badge{
+      font-size: 12px;
+      padding: 8px 10px;
+      border-radius: 999px;
+      background: rgba(72,24,40,.06);
+      border: 1px solid rgba(72,24,40,.10);
+      color: rgba(34,17,22,.78);
+    }
+
+    .heroVisual{position:relative}
+    .heroVisual .stack{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      padding: 14px;
+      height: 100%;
+    }
+    .thumb{
+      border-radius: 16px;
+      overflow:hidden;
+      border: 1px solid rgba(72,24,40,.12);
+      background: #fff;
+      box-shadow: 0 14px 30px rgba(0,0,0,.10);
+      cursor: pointer;
+      transition: transform .18s ease, box-shadow .18s ease;
+      padding: 0;
+    }
+    .thumb:hover{transform: translateY(-2px); box-shadow: 0 18px 40px rgba(0,0,0,.13)}
+    .thumb img{width:100%; height: 220px; object-fit: cover}
+
+    /* Sections */
+    section{padding: 26px 0}
+    .sectionTitle{
+      display:flex; align-items:flex-end; justify-content:space-between;
+      gap: 16px;
+      margin-bottom: 14px;
+    }
+    .sectionTitle h2{
+      font-family:"Playfair Display", serif;
+      font-size: 26px;
+      margin: 0;
+    }
+    .sectionTitle p{margin:0; color: var(--muted)}
+
+    /* Product grid */
+    .grid{display:grid; grid-template-columns: repeat(12, 1fr); gap: 14px}
+    .product{grid-column: span 6; display:flex; flex-direction:column}
+    @media (max-width: 860px){
+      .heroGrid{grid-template-columns:1fr}
+      .product{grid-column: span 12}
+      .thumb img{height: 200px}
+      .brand{min-width: 0}
+    }
+
+    .product .media{aspect-ratio: 4/5; overflow:hidden; background:#fff}
+    .product .media img{width:100%; height:100%; object-fit:cover}
+    .product .body{padding: 14px 16px 16px}
+    .product h3{margin: 0; font-size: 16px}
+    .product .meta{display:flex; gap:10px; flex-wrap:wrap; margin-top: 8px; color: var(--muted); font-size: 13px}
+    .pill{padding: 6px 10px; border-radius:999px; border:1px solid rgba(72,24,40,.12); background: rgba(255,255,255,.65)}
+    .price{margin-left:auto; font-weight:700; color: var(--brand-900)}
+
+    .product .actions{padding: 0 16px 16px; display:flex; gap:10px}
+    .product .actions .btn{flex:1}
+
+    /* About + contact */
+    .twoCol{display:grid; grid-template-columns: 1.2fr .8fr; gap: 14px}
+    @media (max-width: 860px){.twoCol{grid-template-columns:1fr}}
+
+    .about{padding: 18px}
+    .about p{margin: 10px 0; color: rgba(34,17,22,.84); line-height:1.7}
+
+    .contact{padding: 18px}
+    .contact form{display:grid; gap: 10px; margin-top: 10px}
+    input, textarea{
+      width:100%;
+      padding: 12px 12px;
+      border-radius: 14px;
+      border: 1px solid rgba(72,24,40,.16);
+      background: rgba(255,255,255,.8);
+      outline: none;
+      font: inherit;
+    }
+    input:focus, textarea:focus{box-shadow: 0 0 0 6px var(--ring)}
+    textarea{min-height: 120px; resize: vertical}
+
+    /* Footer */
+    footer{
+      padding: 22px 0 40px;
+      color: rgba(34,17,22,.72);
+    }
+    .footerGrid{display:flex; align-items:center; justify-content:space-between; gap: 14px; flex-wrap:wrap}
+
+    /* Lightbox */
+    .lightbox{
+      position: fixed; inset: 0; z-index: 60;
+      background: rgba(10,6,7,.72);
+      display:none;
+      align-items:center; justify-content:center;
+      padding: 18px;
+    }
+    .lightbox.open{display:flex}
+    .lightbox .panel{
+      max-width: 980px; width: 100%;
+      border-radius: 18px;
+      overflow:hidden;
+      background: #111;
+      border: 1px solid rgba(255,255,255,.12);
+      box-shadow: 0 22px 70px rgba(0,0,0,.45);
+      position: relative;
+    }
+    .lightbox img{width:100%; height: auto; display:block}
+    .close{
+      position:absolute; top:10px; right:10px;
+      padding: 10px 12px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.10);
+      border: 1px solid rgba(255,255,255,.18);
+      color:#fff;
+      cursor:pointer;
+      font-weight: 700;
+    }
+
+    /* Small helpers */
+    .divider{height:1px; background: rgba(72,24,40,.10); margin: 10px 0}
+    .sr-only{position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); border:0}
+  </style>
+</head>
+
+<body>
+  <!-- Sticky top bar -->
+  <header class="topbar">
+    <div class="container">
+      <div class="nav">
+        <a class="brand" href="#home" aria-label="Giez Candle ana sayfa">
+          <img src="logo.png" alt="Giez Candle logo" />
+          <div>
+            <strong>Giez Candle</strong>
+            <span>Butik el yapımı mumlar</span>
+          </div>
+        </a>
+
+        <nav class="links" aria-label="Site menüsü">
+          <a href="#urunler">Ürünler</a>
+          <a href="#cicek">Çiçek</a>
+          <a href="#yilbasi">Yılbaşı</a>
+          <a href="#hikaye">Hikaye</a>
+          <a href="#iletisim">İletişim</a>
+          <a class="btn primary" href="#urunler">Koleksiyonu Gör</a>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <main id="home" class="hero">
+    <div class="container">
+      <div class="heroGrid">
+        <div class="card heroCopy">
+          <div class="kicker">✨ Sıcak, minimal ve butik</div>
+          <h1>Giez Candle ile evine sakin bir ışıltı.</h1>
+          <p class="lead">
+            Çiçekli ve meyveli tasarımlar, zarif cam sunumlar ve yumuşak renk paleti.
+            Fotoğraflardaki ürünler örnek koleksiyon görselleridir — aynı estetiği koruyarak farklı renk ve kokularda varyasyonlar ekleyebilirsin.
+          </p>
+          <div class="heroActions">
+            <a class="btn primary" href="#urunler">Ürünleri İncele</a>
+            <a class="btn" href="https://wa.me/905346069871?text=Merhaba%20Giez%20Candle%21%20%C3%96zel%20sipari%C5%9F%20hakk%C4%B1nda%20bilgi%20almak%20istiyorum." target="_blank" rel="noopener">Özel Sipariş (WhatsApp)</a>
+          </div>
+          <div class="badges">
+            <div class="badge">🎁 Hediye için ideal</div>
+            <div class="badge">🕯️ Şık masa üstü sunum</div>
+            <div class="badge">🌿 Minimal & sıcak atmosfer</div>
+          </div>
+          <div class="divider"></div>
+          <p style="margin:0; color:var(--muted); font-size:13px; line-height:1.6">
+           
+          </p>
+        </div>
+
+        <div class="card heroVisual" aria-label="Öne çıkan görseller">
+          <div class="stack">
+            <button class="thumb" data-img="FlowerGarden.png" aria-label="Flower Garden görselini büyüt">
+              <img src="FlowerGarden.png" alt="Flower Garden — martini kadehinde çiçekli mum" />
+            </button>
+            <button class="thumb" data-img="PeonyFire.png" aria-label="Peony Fire görselini büyüt">
+              <img src="PeonyFire.png" alt="Peony Fire — pembe çiçekli mum" />
+            </button>
+            <button class="thumb" data-img="PinkberryJam.png" aria-label="Pinkberry Jam görselini büyüt">
+              <img src="PinkberryJam.png" alt="Pinkberry Jam — kırmızı meyveli mum" />
+            </button>
+            <button class="thumb" data-img="PurpleberryJam.png" aria-label="Purpleberry Jam görselini büyüt">
+              <img src="PurpleberryJam.png" alt="Purpleberry Jam — mor meyveli mum" />
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Products -->
+      <section id="urunler">
+        <div class="sectionTitle">
+          <div>
+            <h2>Koleksiyonlar</h2>
+            <p>Garden / Winter</p>
+          </div>
+          <a class="btn" href="https://wa.me/905346069871?text=Merhaba%20Giez%20Candle%21%20Fiyat%20ve%20stok%20bilgisi%20alabilir%20miyim%3F" target="_blank" rel="noopener">Fiyat & stok sor</a>
+        </div>
+
+        <div class="grid">
+          <div style="grid-column: span 12; padding: 2px 4px;">
+            <span id="cicek"></span>
+            <div style="display:flex; align-items:flex-end; justify-content:space-between; gap:12px; margin: 8px 0 4px;">
+              <h3 style="margin:0; font-family:'Playfair Display',serif; font-size:20px; color: var(--brand-900);">Çiçek Koleksiyonu</h3>
+              <p style="margin:0; color: var(--muted); font-size:13px;">Çiçek & meyve esintili tasarımlar</p>
+            </div>
+            <div style="height:1px; background: rgba(72,24,40,.10);"></div>
+          </div>
+<article class="card product">
+            <div class="media">
+              <img src="FlowerGarden.png" alt="Flower Garden mum" />
+            </div>
+            <div class="body">
+              <h3>Flower Garden</h3>
+              <div class="meta">
+                <span class="pill">Çiçek temalı</span>
+                <span class="pill">Cam kadeh</span>
+                <span class="price">₺ 250</span>
+              </div>
+            </div>
+            <div class="actions">
+              <button class="btn" data-img="FlowerGarden.png">Fotoğrafı Aç</button>
+              <a class="btn primary" href="https://wa.me/905346069871?text=Merhaba%20Giez%20Candle%21%20Flower%20Garden%20mumundan%201%20adet%20%28%E2%82%BA250%29%20sipari%C5%9F%20vermek%20istiyorum." target="_blank" rel="noopener">Sipariş Ver</a>
+            </div>
+          </article>
+
+<article class="card product">
+            <div class="media">
+              <img src="PeonyFire.png" alt="Peony Fire mum" />
+            </div>
+            <div class="body">
+              <h3>Peony Fire</h3>
+              <div class="meta">
+                <span class="pill">Çiçek temalı</span>
+                <span class="pill">Minimal etiket</span>
+                <span class="price">₺ 250</span>
+              </div>
+            </div>
+            <div class="actions">
+              <button class="btn" data-img="PeonyFire.png">Fotoğrafı Aç</button>
+              <a class="btn primary" href="https://wa.me/905346069871?text=Merhaba%20Giez%20Candle%21%20Peony%20Fire%20mumundan%201%20adet%20%28%E2%82%BA250%29%20sipari%C5%9F%20vermek%20istiyorum." target="_blank" rel="noopener">Sipariş Ver</a>
+            </div>
+          </article>
+
+<article class="card product">
+            <div class="media">
+              <img src="PinkberryJam.png" alt="Pinkberry Jam mum" />
+            </div>
+            <div class="body">
+              <h3>Pinkberry Jam</h3>
+              <div class="meta">
+                <span class="pill">Meyve temalı</span>
+                <span class="pill">Katmanlı görünüm</span>
+                <span class="price">₺ 250</span>
+              </div>
+            </div>
+            <div class="actions">
+              <button class="btn" data-img="PinkberryJam.png">Fotoğrafı Aç</button>
+              <a class="btn primary" href="https://wa.me/905346069871?text=Merhaba%20Giez%20Candle%21%20Pinkberry%20Jam%20mumundan%201%20adet%20%28%E2%82%BA250%29%20sipari%C5%9F%20vermek%20istiyorum." target="_blank" rel="noopener">Sipariş Ver</a>
+            </div>
+          </article>
+
+<article class="card product">
+            <div class="media">
+              <img src="PurpleberryJam.png" alt="Purpleberry Jam mum" />
+            </div>
+            <div class="body">
+              <h3>Purpleberry Jam</h3>
+              <div class="meta">
+                <span class="pill">Meyve temalı</span>
+                <span class="pill">Canlı renk</span>
+                <span class="price">₺ 250</span>
+              </div>
+            </div>
+            <div class="actions">
+              <button class="btn" data-img="PurpleberryJam.png">Fotoğrafı Aç</button>
+              <a class="btn primary" href="https://wa.me/905346069871?text=Merhaba%20Giez%20Candle%21%20Purpleberry%20Jam%20mumundan%201%20adet%20%28%E2%82%BA250%29%20sipari%C5%9F%20vermek%20istiyorum." target="_blank" rel="noopener">Sipariş Ver</a>
+            </div>
+          </article>
+
+          <div style="grid-column: span 12; padding: 2px 4px;">
+            <span id="yilbasi"></span>
+            <div style="display:flex; align-items:flex-end; justify-content:space-between; gap:12px; margin: 8px 0 4px;">
+              <h3 style="margin:0; font-family:'Playfair Display',serif; font-size:20px; color: var(--brand-900);">Yılbaşı Koleksiyonu</h3>
+              <p style="margin:0; color: var(--muted); font-size:13px;">Kış temalı özel tasarımlar</p>
+            </div>
+            <div style="height:1px; background: rgba(72,24,40,.10);"></div>
+          </div>
+
+<article class="card product">
+            <div class="media">
+              <img src="unnamed-3.jpg" alt="Kar Tanesi Mum mum" />
+            </div>
+            <div class="body">
+              <h3>Snow Flakes</h3>
+              <div class="meta">
+                <span class="pill">Yılbaşı</span>
+                <span class="pill">Minimal</span>
+                <span class="pill">El yapımı</span>
+                <span class="price">₺ 250</span>
+              </div>
+            </div>
+            <div class="actions">
+              <button class="btn" data-img="unnamed-3.jpg">Fotoğrafı Aç</button>
+              <a class="btn primary" href="https://wa.me/905346069871?text=Merhaba%20Giez%20Candle%21%20Kar%20Tanesi%20Mum%20%28%E2%82%BA250%29%20sipari%C5%9F%20vermek%20istiyorum." target="_blank" rel="noopener">Sipariş Ver</a>
+            </div>
+          </article>
+
+<article class="card product">
+            <div class="media">
+              <img src="unnamed.jpg" alt="Kış Koleksiyonu Mum mum" />
+            </div>
+            <div class="body">
+              <h3>Winter Collection</h3>
+              <div class="meta">
+                <span class="pill">Yılbaşı</span>
+                <span class="pill">Kış</span>
+                <span class="pill">Dekor</span>
+                <span class="price">₺ 250</span>
+              </div>
+            </div>
+            <div class="actions">
+              <button class="btn" data-img="unnamed.jpg">Fotoğrafı Aç</button>
+              <a class="btn primary" href="https://wa.me/905346069871?text=Merhaba%20Giez%20Candle%21%20K%C4%B1%C5%9F%20Koleksiyonu%20Mum%20%28%E2%82%BA250%29%20sipari%C5%9F%20vermek%20istiyorum." target="_blank" rel="noopener">Sipariş Ver</a>
+            </div>
+          </article>
+
+<article class="card product" style="grid-column: span 12">
+            <div class="media" style="aspect-ratio: 16/6">
+              <img src="unnamed-2.jpg" alt="Yılbaşı Hediye Kutusu mum" />
+            </div>
+            <div class="body">
+              <h3>Happy Christmas Trees</h3>
+              <div class="meta">
+                <span class="pill">Yılbaşı</span>
+                <span class="pill">Hediye</span>
+                <span class="pill">Kutu sunum</span>
+                <span class="price">₺ 250</span>
+              </div>
+            </div>
+            <div class="actions">
+              <button class="btn" data-img="unnamed-2.jpg">Fotoğrafı Aç</button>
+              <a class="btn primary" href="https://wa.me/905346069871?text=Merhaba%20Giez%20Candle%21%20Y%C4%B1lba%C5%9F%C4%B1%20Hediye%20Kutusu%20i%C3%A7in%20%28%E2%82%BA250/adet%29%20bilgi%20al%C4%B1p%20sipari%C5%9F%20vermek%20istiyorum." target="_blank" rel="noopener">Sipariş Ver</a>
+            </div>
+          </article>
+</div>
+      </section>
+
+      <!-- About + Contact -->
+      <section class="twoCol">
+        <div class="card about" id="hikaye">
+          <div class="sectionTitle" style="margin-bottom:10px">
+            <h2>Marka Hikayesi</h2>
+    
+          </div>
+          <p>
+            <strong>Giez Candle</strong>, küçük detayların büyük bir atmosfer yarattığına inanır.
+            Her tasarım; yumuşak tonlar, minimal etiketler ve butik bir sunum diliyle hazırlanır.
+             
+            <p>Giez Candle 2025 yılında kurulmuş bir marka olup, el yapımı mum tasarımlarıyla evlere sıcaklık ve estetik katmayı amaçlamaktadır.
+            Her bir ürün, özenle seçilmiş malzemelerle ve detaylara verilen önemle hazırlanır.
+            Mumlarımız yüksek kaliteli alman soya wax'ı, doğal esansiyel yağlar ve pamuk fitiller kullanılarak üretilir,
+            böylece temiz ve uzun süreli bir yanma deneyimi sunar.</p>
+          </p>
+          <p><div style="display:flex; justify-content:flex-start; margin: 24px 0 10px; padding-left: 18px;">
+  <img src="logo.png" alt="Giez Candle logo" style="width:220px; height:auto; opacity:.95;">
+</div>
+          
+          
+          </p>
+          <div class="divider"></div>
+          <p style="margin:0; color:var(--muted); font-size:13px; line-height:1.6">
+           
+          </p>
+        </div>
+
+        <div class="card contact" id="iletisim">
+          <div class="sectionTitle" style="margin-bottom:10px">
+            <h2>İletişim</h2>
+          </div>
+
+          <!-- This form is a static demo. To make it functional, connect it to a service (Formspree, Netlify Forms, etc.). -->
+          <form onsubmit="event.preventDefault(); alert('Mesaj taslak olarak kaydedildi. Canlıya almak için form servisi bağlayabiliriz.');">
+            <label class="sr-only" for="name">Ad</label>
+            <input id="name" name="name" placeholder="Adınız" autocomplete="name" required>
+
+            <label class="sr-only" for="email">E-posta</label>
+            <input id="email" name="email" type="email" placeholder="E-posta" autocomplete="email" required>
+
+            <label class="sr-only" for="msg">Mesaj</label>
+            <textarea id="msg" name="message" placeholder="Kısa mesaj (ör. 2 adet Flower Garden için fiyat alabilir miyim?)" required></textarea>
+
+            <button class="btn primary" type="submit">Mesaj Gönder</button>
+            
+            <a class="btn" href="https://wa.me/905346069871?text=Merhaba%20Giez%20Candle%21%20Sipari%C5%9F%20vermek%20istiyorum.%20%28%E2%82%BA250/adet%29" target="_blank" rel="noopener">WhatsApp</a>
+            <a class="btn" href="https://www.etsy.com/shop/GiezCandles?ref=shop_profile&listing_id=4431094665" target="_blank" rel="noopener">Etsy</a>
+            <a class="btn" href="https://www.shopier.com/giezcandle" target="_blank" rel="noopener">Shopier</a>
+            <a class="btn" href="https://www.instagram.com/giezcandle/" target="_blank" rel="noopener">Instagram</a>
+            <a class="btn" href="https://www.facebook.com/giezcandlee/" target="_blank" rel="noopener">Facebook</a>
+          </form>
+
+          <p style="margin:12px 0 0; color:var(--muted); font-size:13px; line-height:1.6">
+         <a href="https://wa.me/905346069871?text=Merhaba%20Giez%20Candle%21%20Sipari%C5%9F%20vermek%20istiyorum." target="_blank" rel="noopener" style="text-decoration:underline;"></a>
+          </p>
+          <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:10px">
+            <a class="pill" href="https://www.etsy.com/shop/GiezCandles?ref=shop_profile&listing_id=4431094665" target="_blank" rel="noopener">Etsy</a>
+            <a class="pill" href="https://www.shopier.com/giezcandle" target="_blank" rel="noopener">Shopier</a>
+            <a class="pill" href="https://www.instagram.com/giezcandle/" target="_blank" rel="noopener">Instagram</a>
+            <a class="pill" href="https://www.facebook.com/giezcandlee/" target="_blank" rel="noopener">Facebook</a>
+          </div>
+        </div>
+      </section>
+
+      <footer>
+        <div class="footerGrid">
+          <div style="display:flex; align-items:center; gap:10px">
+            <span style="display:inline-flex; width:10px; height:10px; border-radius:999px; background:var(--brand-900)"></span>
+            <strong style="font-family:'Playfair Display',serif">Giez Candle</strong>
+            <span style="color:var(--muted)">© <span id="y"></span></span>
+          </div>
+          <div style="display:flex; gap:10px; flex-wrap:wrap">
+            <a class="pill" href="#urunler">Ürünler</a>
+            <a class="pill" href="#hikaye">Hikaye</a>
+            <a class="pill" href="#iletisim">İletişim</a>
+          </div>
+        </div>
+      </footer>
+    </div>
+  </main>
+
+  <!-- Lightbox -->
+  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Görsel önizleme">
+    <div class="panel">
+      <button class="close" id="close" aria-label="Kapat">✕</button>
+      <img id="lightImg" alt="Büyük görsel" />
+    </div>
+  </div>
+
+  <script>
+    // Year in footer
+    document.getElementById('y').textContent = new Date().getFullYear();
+
+    // Lightbox
+    const lb = document.getElementById('lightbox');
+    const img = document.getElementById('lightImg');
+    const closeBtn = document.getElementById('close');
+
+    function openLightbox(src){
+      img.src = src;
+      lb.classList.add('open');
+      closeBtn.focus();
+    }
+
+    function closeLightbox(){
+      lb.classList.remove('open');
+      img.removeAttribute('src');
+    }
+
+    document.querySelectorAll('[data-img]').forEach(el => {
+      el.addEventListener('click', () => openLightbox(el.getAttribute('data-img')));
+    });
+
+    closeBtn.addEventListener('click', closeLightbox);
+    lb.addEventListener('click', (e) => { if(e.target === lb) closeLightbox(); });
+
+    document.addEventListener('keydown', (e) => {
+      if(e.key === 'Escape' && lb.classList.contains('open')) closeLightbox();
+    });
+  </script>
+</body>
+</html>
