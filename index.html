@@ -265,6 +265,64 @@
     /* Small helpers */
     .divider{height:1px; background: rgba(72,24,40,.10); margin: 10px 0}
     .sr-only{position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); border:0}
+
+    /* Admin panel */
+    .admin-toggle{
+      position: fixed; bottom: 16px; right: 16px; z-index: 90;
+      border: 1px solid rgba(72,24,40,.18);
+      background: linear-gradient(135deg, var(--brand-900), var(--brand-700));
+      color: #fff; padding: 10px 14px; border-radius: 14px;
+      box-shadow: 0 14px 30px rgba(0,0,0,.16); cursor: pointer;
+      font-weight: 700; letter-spacing: .3px;
+    }
+    .admin-overlay{
+      position: fixed; inset: 0; z-index: 120;
+      background: rgba(10,6,7,.65);
+      display: none;
+      align-items: center; justify-content: center;
+      padding: 14px;
+    }
+    .admin-overlay.open{display:flex}
+    .admin-card{
+      width: min(680px, 100%);
+      background: #fff;
+      border-radius: 18px;
+      box-shadow: 0 18px 46px rgba(0,0,0,.25);
+      border: 1px solid rgba(72,24,40,.14);
+      padding: 16px 18px 18px;
+      position: relative;
+      max-height: 90vh;
+      overflow: auto;
+    }
+    .admin-close{
+      position:absolute; right: 12px; top: 12px;
+      border: 1px solid rgba(72,24,40,.18);
+      background: rgba(72,24,40,.06);
+      border-radius: 10px;
+      padding: 8px 10px;
+      cursor:pointer;
+    }
+    .admin-card h3{margin: 4px 0 12px; font-family:"Playfair Display", serif;}
+    .admin-field{display:grid; gap:6px; margin-bottom:10px}
+    .admin-field input, .admin-field textarea{
+      width:100%; padding: 10px 12px; border-radius: 12px;
+      border: 1px solid rgba(72,24,40,.16); background: rgba(255,255,255,.9);
+      font: inherit;
+    }
+    .admin-actions{display:flex; gap:10px; flex-wrap:wrap; margin-top: 8px}
+    .admin-note{
+      font-size: 12px; color: var(--muted);
+      background: rgba(72,24,40,.06);
+      border: 1px solid rgba(72,24,40,.10);
+      padding: 10px 12px; border-radius: 12px;
+      margin-top: 6px;
+      line-height: 1.6;
+    }
+    .admin-error{color: #a32d2d; font-size: 13px; margin: 6px 0}
+    @media (max-width: 600px){
+      .admin-card{padding:14px; border-radius:16px}
+      .admin-toggle{right: 12px; bottom: 12px}
+    }
   </style>
 </head>
 
@@ -299,8 +357,8 @@
       <div class="heroGrid">
         <div class="card heroCopy">
           <div class="kicker">✨ Sıcak, minimal ve butik</div>
-          <h1>Giez Candle ile evine sakin bir ışıltı.</h1>
-          <p class="lead">
+          <h1 data-edit-key="hero-title" data-edit-label="Hero başlık">Giez Candle ile evine sakin bir ışıltı.</h1>
+          <p class="lead" data-edit-key="hero-lead" data-edit-label="Hero açıklama" data-edit-type="textarea">
             Çiçekli ve meyveli tasarımlar, zarif cam sunumlar ve yumuşak renk paleti.
             Fotoğraflardaki ürünler örnek koleksiyon görselleridir — aynı estetiği koruyarak farklı renk ve kokularda varyasyonlar ekleyebilirsin.
           </p>
@@ -361,11 +419,11 @@
               <img src="FlowerGarden.png" alt="Flower Garden mum" />
             </div>
             <div class="body">
-              <h3>Flower Garden</h3>
+              <h3 data-edit-key="product-flower-name" data-edit-label="Flower Garden başlık">Flower Garden</h3>
               <div class="meta">
                 <span class="pill">Çiçek temalı</span>
                 <span class="pill">Cam kadeh</span>
-                <span class="price">₺ 250</span>
+                <span class="price" data-edit-key="product-flower-price" data-edit-label="Flower Garden fiyat">₺ 250</span>
               </div>
             </div>
             <div class="actions">
@@ -379,11 +437,11 @@
               <img src="PeonyFire.png" alt="Peony Fire mum" />
             </div>
             <div class="body">
-              <h3>Peony Fire</h3>
+              <h3 data-edit-key="product-peony-name" data-edit-label="Peony Fire başlık">Peony Fire</h3>
               <div class="meta">
                 <span class="pill">Çiçek temalı</span>
                 <span class="pill">Minimal etiket</span>
-                <span class="price">₺ 250</span>
+                <span class="price" data-edit-key="product-peony-price" data-edit-label="Peony Fire fiyat">₺ 250</span>
               </div>
             </div>
             <div class="actions">
@@ -397,11 +455,11 @@
               <img src="PinkberryJam.png" alt="Pinkberry Jam mum" />
             </div>
             <div class="body">
-              <h3>Pinkberry Jam</h3>
+              <h3 data-edit-key="product-pink-name" data-edit-label="Pinkberry Jam başlık">Pinkberry Jam</h3>
               <div class="meta">
                 <span class="pill">Meyve temalı</span>
                 <span class="pill">Katmanlı görünüm</span>
-                <span class="price">₺ 250</span>
+                <span class="price" data-edit-key="product-pink-price" data-edit-label="Pinkberry Jam fiyat">₺ 250</span>
               </div>
             </div>
             <div class="actions">
@@ -415,11 +473,11 @@
               <img src="PurpleberryJam.png" alt="Purpleberry Jam mum" />
             </div>
             <div class="body">
-              <h3>Purpleberry Jam</h3>
+              <h3 data-edit-key="product-purple-name" data-edit-label="Purpleberry Jam başlık">Purpleberry Jam</h3>
               <div class="meta">
                 <span class="pill">Meyve temalı</span>
                 <span class="pill">Canlı renk</span>
-                <span class="price">₺ 250</span>
+                <span class="price" data-edit-key="product-purple-price" data-edit-label="Purpleberry Jam fiyat">₺ 250</span>
               </div>
             </div>
             <div class="actions">
@@ -442,12 +500,12 @@
               <img src="unnamed-3.jpg" alt="Kar Tanesi Mum mum" />
             </div>
             <div class="body">
-              <h3>Snow Flakes</h3>
+              <h3 data-edit-key="product-snow-name" data-edit-label="Snow Flakes başlık">Snow Flakes</h3>
               <div class="meta">
                 <span class="pill">Yılbaşı</span>
                 <span class="pill">Minimal</span>
                 <span class="pill">El yapımı</span>
-                <span class="price">₺ 250</span>
+                <span class="price" data-edit-key="product-snow-price" data-edit-label="Snow Flakes fiyat">₺ 250</span>
               </div>
             </div>
             <div class="actions">
@@ -461,12 +519,12 @@
               <img src="unnamed.jpg" alt="Kış Koleksiyonu Mum mum" />
             </div>
             <div class="body">
-              <h3>Winter Collection</h3>
+              <h3 data-edit-key="product-winter-name" data-edit-label="Winter Collection başlık">Winter Collection</h3>
               <div class="meta">
                 <span class="pill">Yılbaşı</span>
                 <span class="pill">Kış</span>
                 <span class="pill">Dekor</span>
-                <span class="price">₺ 250</span>
+                <span class="price" data-edit-key="product-winter-price" data-edit-label="Winter Collection fiyat">₺ 250</span>
               </div>
             </div>
             <div class="actions">
@@ -480,12 +538,12 @@
               <img src="unnamed-2.jpg" alt="Yılbaşı Hediye Kutusu mum" />
             </div>
             <div class="body">
-              <h3>Happy Christmas Trees</h3>
+              <h3 data-edit-key="product-christmas-name" data-edit-label="Happy Christmas Trees başlık">Happy Christmas Trees</h3>
               <div class="meta">
                 <span class="pill">Yılbaşı</span>
                 <span class="pill">Hediye</span>
                 <span class="pill">Kutu sunum</span>
-                <span class="price">₺ 250</span>
+                <span class="price" data-edit-key="product-christmas-price" data-edit-label="Happy Christmas Trees fiyat">₺ 250</span>
               </div>
             </div>
             <div class="actions">
@@ -501,23 +559,16 @@
         <div class="card about" id="hikaye">
           <div class="sectionTitle" style="margin-bottom:10px">
             <h2>Marka Hikayesi</h2>
-    
           </div>
-          <p>
-            <strong>Giez Candle</strong>, küçük detayların büyük bir atmosfer yarattığına inanır.
-            Her tasarım; yumuşak tonlar, minimal etiketler ve butik bir sunum diliyle hazırlanır.
-             
-            <p>Giez Candle 2025 yılında kurulmuş bir marka olup, el yapımı mum tasarımlarıyla evlere sıcaklık ve estetik katmayı amaçlamaktadır.
-            Her bir ürün, özenle seçilmiş malzemelerle ve detaylara verilen önemle hazırlanır.
-            Mumlarımız yüksek kaliteli alman soya wax'ı, doğal esansiyel yağlar ve pamuk fitiller kullanılarak üretilir,
-            böylece temiz ve uzun süreli bir yanma deneyimi sunar.</p>
+          <p data-edit-key="story-1" data-edit-label="Hikaye paragrafı 1" data-edit-type="textarea">
+            Giez Candle, küçük detayların büyük bir atmosfer yarattığına inanır. Her tasarım; yumuşak tonlar, minimal etiketler ve butik bir sunum diliyle hazırlanır.
           </p>
-          <p><div style="display:flex; justify-content:flex-start; margin: 24px 0 10px; padding-left: 18px;">
-  <img src="logo.png" alt="Giez Candle logo" style="width:220px; height:auto; opacity:.95;">
-</div>
-          
-          
+          <p data-edit-key="story-2" data-edit-label="Hikaye paragrafı 2" data-edit-type="textarea">
+            Giez Candle 2025 yılında kurulmuş bir marka olup, el yapımı mum tasarımlarıyla evlere sıcaklık ve estetik katmayı amaçlamaktadır. Her bir ürün, özenle seçilmiş malzemelerle ve detaylara verilen önemle hazırlanır. Mumlarımız yüksek kaliteli alman soya wax'ı, doğal esansiyel yağlar ve pamuk fitiller kullanılarak üretilir, böylece temiz ve uzun süreli bir yanma deneyimi sunar.
           </p>
+          <div style="display:flex; justify-content:flex-start; margin: 24px 0 10px; padding-left: 18px;">
+            <img src="logo.png" alt="Giez Candle logo" style="width:220px; height:auto; opacity:.95;">
+          </div>
           <div class="divider"></div>
           <p style="margin:0; color:var(--muted); font-size:13px; line-height:1.6">
            
@@ -583,6 +634,44 @@
     <div class="panel">
       <button class="close" id="close" aria-label="Kapat">✕</button>
       <img id="lightImg" alt="Büyük görsel" />
+    </div>
+  </div>
+
+  <button type="button" class="admin-toggle" id="adminToggle" aria-label="Yönetici panelini aç">Admin</button>
+
+  <div class="admin-overlay" id="adminOverlay" role="dialog" aria-modal="true" aria-label="Yönetici paneli">
+    <div class="admin-card">
+      <button class="admin-close" id="adminClose" aria-label="Kapat">✕</button>
+
+      <div id="adminLogin">
+        <h3>Yönetici girişi</h3>
+        <form id="loginForm">
+          <div class="admin-field">
+            <label for="adminUser">Kullanıcı adı</label>
+            <input id="adminUser" name="user" autocomplete="username" required>
+          </div>
+          <div class="admin-field">
+            <label for="adminPass">Şifre</label>
+            <input id="adminPass" name="pass" type="password" autocomplete="current-password" required>
+          </div>
+          <div class="admin-actions">
+            <button class="btn primary" type="submit">Giriş yap</button>
+          </div>
+          <p class="admin-error" id="adminError" hidden>Bilgiler hatalı, tekrar deneyin.</p>
+          <p class="admin-note">Demo amaçlı basit bir paneldir; gerçek güvenlik için sunucu tarafı doğrulama gerekir.</p>
+        </form>
+      </div>
+
+      <div id="adminControls" hidden>
+        <h3>İçerik düzenle</h3>
+        <form id="adminForm"></form>
+        <div class="admin-actions">
+          <button class="btn primary" type="submit" form="adminForm">Kaydet</button>
+          <button class="btn" type="button" id="adminReset">Varsayılanlara dön</button>
+          <button class="btn" type="button" id="adminLogout">Çıkış</button>
+        </div>
+        <p class="admin-note">Değişiklikler tarayıcınızda saklanır (localStorage). Gerçek şifre koruması için backend gerekir.</p>
+      </div>
     </div>
   </div>
 
